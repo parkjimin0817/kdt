@@ -1,6 +1,9 @@
 //var -> 더이상 사용하지 않는다.
-var tmp = "여기서 시작";
+
 console.log(tmp); // 호이스팅 : 문서 내의 모든 변수를 위로 끌어롤려 선언하는 것
+var tmp = "여기서 시작";
+console.log(tmp);
+
 
 
 //let vs const : 변수와 상수
