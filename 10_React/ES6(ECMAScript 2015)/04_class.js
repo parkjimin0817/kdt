@@ -12,6 +12,13 @@ const Person = class { //변수에 클래스를 부여할 수도 있다.
         this.gender = "M";
     }
     //메서드를 정의
+    getAge(){
+        return this.age;
+    }
+
+    setAge(age){
+        this.age = age; 
+    }
 
     printMyInfo(){
         console.log(`제 이름은 ${this.name}이며 나이는 ${this.age}입니다.`);
