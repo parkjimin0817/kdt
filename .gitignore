@@ -182,8 +182,5 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-# 민감 정보가 포함된 파일들
-09_Spring/spring-shop/src/main/resources/application.properties
-.env
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,visualstudiocode,java,maven,windows,gradle
