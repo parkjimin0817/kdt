@@ -183,8 +183,5 @@ gradle-app.setting
 *.hprof
 
 # Spring 환경설정 민감 정보
-src/main/resources/application-oauth.properties
-src/main/resources/application-secret.properties
-src/main/resources/application-local.properties
-.env
+09_Spring/spring-shop/src/main/resources/application.properties
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,visualstudiocode,java,maven,windows,gradle
