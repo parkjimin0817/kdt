@@ -13,7 +13,21 @@ const loginUser = {
 function getImg(){
     return <img src={imgurl} alt="빵빵이" width={100}/>
 }
+
 const numbers = [1,2,3,4]
+const userList = [{
+    name : "박지민",
+    id : "jimin001",
+    age : 38,
+},{
+    name : "박지지",
+    id : "jimin002",
+    age : 40,
+},{
+    name : "박지성",
+    id : "jimin003",
+    age : 88,
+}]
 
 const JavaScript = () => {
   return (
@@ -60,12 +74,31 @@ const JavaScript = () => {
             <li>{num > 10 ? "10보다 큼" : "10보다 작음"}</li>
             <li>{num != 10 && "조건이 true일 때 보임"}</li>
             <li>{num != 10 || "조건이 true일 때 보임"}</li>
+
+            <h3>삼항 연산자</h3>
+            <li>{1 + 1 === 2 ? "참입니다" : "거짓입니다"}</li>
+            
+            <h3>AND 연산자</h3>
+            <li>{1+1 === 2 && "AND 연산자 1"}</li>
+            <li>{1+1 !== 2 && "AND 연산자 2"}</li>
+            <li>{userList.length !== 0 && "user목록"}</li>
+
+            <h3>OR 연산자</h3>
+            <li>{1+1 !== 2 || "OR 연산자 1"}</li>
+            <li>{1+1 === 2 || "OR 연산자 2"}</li>
         </ul>
 
         <h2>함수호출로 태그가 올 수 있음</h2>
         <ul>
             <li>{getImg()}</li>
         </ul>
+
+        <h2>배열을 이용한 동적 리스트</h2>
+        <ul>
+            {userList.map((user) => <li key={user.id}>이름 : {user.name}, id: {user.id}, 나이: {user.age}</li> )}
+        </ul> {/*동적으로 ui생성 시 react가 변경 항목만을 식별하기 위해 key 속성이 필요함*/}
+        
+        
     </div>
   )
 }
