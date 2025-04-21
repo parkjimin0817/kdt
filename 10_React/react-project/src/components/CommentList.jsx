@@ -17,50 +17,52 @@ const serverComments = [
     },
 ]
 
-class CommentList extends Component {
-    constructor(props){
-        super(props);
-        this.state={
+  
+  class CommentList extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        commentList: [],
+      };
+    }
+  
+    componentDidMount() {
+      setInterval(() => {
+        const { commentList } = this.state;
+  
+        if (commentList.length < serverComments.length) {
+          const nextComment = serverComments[commentList.length];
+  
+          this.setState({
+            commentList: [...commentList, nextComment],
+          });
+        } else {
+          this.setState({
             commentList: [],
+          });
         }
+      }, 3000);
     }
-
-    componentDidMount(){
-        //setInterval : 일정시간마다 반복해서 동작하는 비동기 함수
-        
-        setInterval(() => {
-            const {commentList} = this.state;
-
-            if(commentList.length < serverComments.length){
-                const nextComment = serverComments[commentList.length]
-
-                this.setState({
-                    commentList: [...commentList, nextComment]
-                })
-            } else {
-                this.setState({
-                    commentList: []
-                })
-            }
-        }, 5000)
+  
+    componentWillUnmount() {
+      clearInterval(this.interval); // 컴포넌트가 언마운트될 때 interval 정리
     }
-
-    componentWillUnmount(){
-
+  
+    render() {
+      const { commentList } = this.state;
+  
+      return (
+        <div>
+          {commentList.map((c) => (
+            <Comment
+              key={c.id}
+              id={c.id}
+              message={c.message}
+            />
+          ))}
+        </div>
+      );
     }
-
-  render() { 
-
-    return (
-      <div>
-        {this.state.commentList.map(c => 
-            <Comment key = {c.id}
-                    id = {c.id}
-                    message = {c.message}>
-            </Comment>)}
-      </div>
-    )
   }
-}
-
-export default CommentList
+  
+  export default CommentList;
