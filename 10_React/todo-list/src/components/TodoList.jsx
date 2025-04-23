@@ -81,7 +81,7 @@ const onToggle = (id) => {
   };
 
   const onDelete = (id) => {
-    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
