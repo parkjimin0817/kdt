@@ -11,6 +11,11 @@ import UseMemoTest from './components/useMemo/UseMemoTest'
 import UsecallbackTest from './components/useCallback/UsecallbackTest'
 import UseEffectTest from './components/useEffect/UseEffectTest'
 import EffectView from './components/useEffect/EffectView'
+import BlackOrWhite from './components/useContext/BlackOrWhite'
+import MyForm from './components/customHook/MyForm'
+import ToggleBox from './components/customHook/ToggleBox'
+import Header from './components/useContext/Header'
+import { UserProvider } from './components/useContext/UserContext'
 
 function App() {
 
@@ -23,7 +28,13 @@ function App() {
       {/* <UserRefScroll/> */}
       {/* <UseMemoTest/> */}
       {/* <UsecallbackTest/> */}
-      <EffectView/>
+      {/* <EffectView/> */}
+      {/* <BlackOrWhite/> */}
+      {/* <MyForm/> */}
+      {/* <ToggleBox/> */}
+      <UserProvider>
+        <Header/>
+      </UserProvider>
     </>
   )
 }
