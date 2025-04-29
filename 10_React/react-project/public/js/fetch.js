@@ -18,7 +18,7 @@ async function getPosts(){
     }
 }
 
-//getPosts()
+//getPosts();
 
 function testFunc1(){}
 async function testFunc2(){}
