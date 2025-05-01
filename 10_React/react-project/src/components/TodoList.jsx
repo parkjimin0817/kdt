@@ -11,7 +11,7 @@ const TodoList = () => {
 
   useEffect(() => {
     getTodos();
-  });
+  }, []);
 
   return (
     <div>
