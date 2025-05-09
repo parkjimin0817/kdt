@@ -3,7 +3,7 @@ spring:
     name: board
   datasource:
     hikari:
-      url: jdbc:h2:tcp://localhost/C:\Users\user1\Desktop\kdt강의\11_SpringBoot\board\tdb
+      jdbc-url: jdbc:h2:tcp://localhost/C:\Users\user1\Desktop\kdt강의\11_SpringBoot\board\tdb
       driver-class-name: org.h2.Driver
       username: sa
       password:
