@@ -27,7 +27,7 @@ function formatDate(date) {
 
 function getBoard(boardId, callback){
     $.ajax({
-        url: "http://localhost:8888/api/board/" + boardId,
+        url: "http://localhost:8888/board/" + boardId,
         type: "get",                            
         contentType: "application/json",       
         success: function(response) {
@@ -42,7 +42,7 @@ function getBoard(boardId, callback){
 
 function getBoardList(callback){
     $.ajax({
-        url: "http://localhost:8888/api/board",
+        url: "http://localhost:8888/board",
         type: "get",                            
         contentType: "application/json",       
         success: function(response) {
@@ -87,7 +87,7 @@ function insertBoard(){
 
     // AJAX 요청 보내기
     $.ajax({
-        url: "http://localhost:8888/api/board", // 서버의 글쓰기 API URL
+        url: "http://localhost:8888/board", // 서버의 글쓰기 API URL
         type: "POST",
         data: formData,
         contentType: false, // FormData를 사용하면 contentType은 false로 설정
@@ -119,7 +119,7 @@ function updateBoard(){
     formData.append("boardId", boardId);
 
     $.ajax({
-        url: "http://localhost:8888/api/board",
+        url: "http://localhost:8888/board",
         type: "PUT",
         data: formData,
         contentType: false, // FormData를 사용하면 contentType은 false로 설정
@@ -146,7 +146,7 @@ function deleteBoard(){
 
 
     $.ajax({
-        url: "http://localhost:8888/api/board/" + boardId,
+        url: "http://localhost:8888/board/" + boardId,
         type: "DELETE",
         success: function(response) {
             alert("글이 성공적으로 삭제되었습니다.");
