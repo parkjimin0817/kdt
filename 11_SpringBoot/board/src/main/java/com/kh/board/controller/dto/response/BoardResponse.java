@@ -34,6 +34,7 @@ public class BoardResponse {
     @Setter
     @Builder
     public static class DetailDTO{
+        private Long board_id;
         private String title;
         private String member_email;
         private String contents;
@@ -41,6 +42,7 @@ public class BoardResponse {
 
         public static DetailDTO formEntity(Board board){
             return DetailDTO.builder()
+                    .board_id(board.getBoardId())
                     .title(board.getTitle())
                     .member_email(board.getMemberEmail())
                     .contents(board.getContents())
