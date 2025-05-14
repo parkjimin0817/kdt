@@ -1,10 +1,4 @@
-2025-05-09 11:40:30.641937+09:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "BOARD" not found; SQL statement:
-DROP TABLE BOARD [42102-232]
-2025-05-09 11:40:30.647938+09:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "MEMBER" not found; SQL statement:
-DROP TABLE MEMBER [42102-232]
-2025-05-09 15:50:58.440403+09:00 jdbc[13]: null
+2025-05-14 16:31:19.125683+09:00 jdbc[3]: null
 org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-232]
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
@@ -23,7 +17,7 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:690)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 13 more
-2025-05-14 15:14:21.597606+09:00 jdbc[5]: null
+2025-05-14 16:31:19.128682+09:00 jdbc[3]: null
 org.h2.message.DbException: The connection was not closed by the application and is garbage collected [90018-232]
 	at org.h2.message.DbException.get(DbException.java:223)
 	at org.h2.message.DbException.get(DbException.java:199)
