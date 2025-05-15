@@ -1,33 +1,41 @@
 package com.kh.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.CurrentTimestamp;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Notice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "notice_no")
+    @Column(name = "NOTICE_NO")
     private Long noticeNo;
 
-    @Column(name = "notice_title", length = 30, nullable = false)
+    @Column(name = "NOTICE_TITLE", length = 30, nullable = false)
     private String noticeTitle;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn( name = "notice_writer", nullable = false)
+    @JoinColumn( name = "NOTICE_WRITER", nullable = false)
     private Member member;
 
-    @Column(name = "notice_content", length = 200, nullable = false)
+    @Column(name = "NOTICE_CONTENT", length = 200, nullable = false)
     private String noticeContent;
 
-    @CreationTimestamp
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
+
+    @PrePersist
+    public void prePersist(){
+        this.createDate = LocalDateTime.now();
+    }
+
 }
