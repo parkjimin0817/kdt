@@ -1,20 +1,28 @@
 package com.kh.jpa.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
-@Table(name = "board_tag")
+@Table(name = "BOARD_TAG")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class BoardTag {
 
     @Id
+    @Column(name = "BOARD_TAG_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long boardTagId;
+
+    //Board : 중계테이블 (1 : N)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_no")
+    @JoinColumn(name = "BOARD_NO", nullable = false)
     private Board board;
 
-    @Id
+    //Tag : 중계테이블 (1 : N)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "TAG_ID", nullable = false)
     private Tag tag;
 }

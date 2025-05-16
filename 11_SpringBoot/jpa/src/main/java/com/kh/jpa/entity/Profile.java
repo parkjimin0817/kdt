@@ -2,8 +2,6 @@ package com.kh.jpa.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
 
 @Getter
 @Entity
@@ -23,8 +21,7 @@ public class Profile {
     @Column(length = 300)
     private String intro;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL)
     private Member member;
 
 }

@@ -1,5 +1,6 @@
 package com.kh.jpa.entity;
 
+import com.kh.jpa.dto.MemberDto;
 import com.kh.jpa.enums.CommonEnums;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
@@ -58,9 +59,28 @@ public class Member {
         M, F
     }
 
-    public enum Status {
-        Y, N
+    public void updateMemberInfo(String userName, String email, Gender gender,
+                                 String phone, String address, Integer age) {
+        this.userName = userName;
+        this.email = email;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+        this.age = age;
     }
+
+    //1 : N 연관관계 주인 = Board
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    List<Board> boards = new ArrayList<>();
+
+    //1 : N 연관관계 주인 = Notice
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    List<Notice> notices = new ArrayList<>();
+
+    //Member : Profile (1 : 1)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "PROFILE_ID", unique = true)
+    private Profile profile;
 
     //엔티티가 영속성 컨텍스트에 저장되기 전 (em.persist())에 실행되는 메서드
     //초기설정을 해두는 용도로 사용
@@ -77,17 +97,5 @@ public class Member {
     public void preUpdate(){
         this.modifyDate = LocalDateTime.now();
     }
-
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private Profile profile;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Board> boards = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Notice> notices = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Reply> replies = new ArrayList<>();
 
 }

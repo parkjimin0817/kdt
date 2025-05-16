@@ -3,8 +3,6 @@ package com.kh.jpa.entity;
 import com.kh.jpa.enums.CommonEnums;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,16 +20,13 @@ public class Board {
     @Column(name = "BOARD_NO")
     private Long boardNo;
 
-    @Column(name = "BOARD_TITLE", length = 100, nullable = false)
+    @Column(name = "BOARD_TITLE", length = 30, nullable = false)
     private String boardTitle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn( name = "BOARD_WRITER", nullable = false)
-    private Member member;
-
-    @Lob // 대용량 데이터 매핑
+    //@Lob : 대용량 데이터 매핑
     @Column(name = "BOARD_CONTENT", nullable = false)
-    private String boardContent;
+    @Lob
+    private String noticeContent;
 
     @Column(name = "ORIGIN_NAME", length = 100)
     private String originName;
@@ -39,7 +34,7 @@ public class Board {
     @Column(name = "CHANGE_NAME", length = 100)
     private String changeName;
 
-    @Column(name = "CREATE_DATE", updatable = false)
+    @Column(name = "CREATE_DATE")
     private LocalDateTime createDate;
 
     @Column(length = 1, nullable = false)
@@ -48,8 +43,22 @@ public class Board {
 
     private Integer count;
 
+    //Board : Member (N : 1)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BOARD_WRITER")
+    private Member member;
+
+    //Reply : Board (N : 1) 주인 : reply
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Reply> replies = new ArrayList<>();
+
+    //BoardTag : Board (N : 1) 주인 : boardTag
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<BoardTag> boardTags = new ArrayList<>();
+
+
     @PrePersist
-    public void prePersist(){
+    protected void onCreate() {
         this.createDate = LocalDateTime.now();
         this.count = 0;
         if(this.status == null) {
@@ -57,9 +66,4 @@ public class Board {
         }
     }
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<Reply> replies = new ArrayList<>();
-
-    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
-    private List<BoardTag> boardTags = new ArrayList<>();
 }
