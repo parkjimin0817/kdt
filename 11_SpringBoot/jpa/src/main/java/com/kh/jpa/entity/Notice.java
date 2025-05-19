@@ -26,6 +26,11 @@ public class Notice {
     @Column(name = "CREATE_DATE", updatable = false)
     private LocalDateTime createDate;
 
+    public void updateNotice(String noticeTitle, String noticeContent) {
+        this.noticeTitle = noticeTitle;
+        this.noticeContent = noticeContent;
+    }
+
     //Notice : Member (N : 1)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "NOTICE_WRITER")

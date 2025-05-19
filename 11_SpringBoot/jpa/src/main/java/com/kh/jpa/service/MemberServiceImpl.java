@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +34,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<MemberDto.Response> findAllMember() {
+        return memberRepository.findAll().stream()
+                .map(MemberDto.Response::toDto)
+                .collect(Collectors.toList()); //컬렉션에 담아주기
+    }
+
+    @Override
     public MemberDto.Response updateMember(String userId, MemberDto.Update updateDto) {
         Member member = memberRepository.findOne(userId)
                                         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
@@ -42,7 +52,6 @@ public class MemberServiceImpl implements MemberService {
                 updateDto.getAddress(),
                 updateDto.getAge()
         );
-
         return MemberDto.Response.toDto(member);
     }
 
@@ -51,5 +60,12 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findOne(userId)
                         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         memberRepository.delete(member);
+    }
+
+    @Override
+    public List<MemberDto.Response> findByName(String name) {
+        return memberRepository.findByName(name).stream()
+                .map(MemberDto.Response::toDto)
+                .collect(Collectors.toList());
     }
 }
