@@ -1,10 +1,8 @@
 package com.kh.jpa.controller;
 
-import com.kh.jpa.dto.MemberDto;
 import com.kh.jpa.dto.NoticeDto;
 import com.kh.jpa.entity.Member;
 import com.kh.jpa.repository.MemberRepository;
-import com.kh.jpa.service.MemberService;
 import com.kh.jpa.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

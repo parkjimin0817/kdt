@@ -34,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<MemberDto.Response> findAllMember() {
         return memberRepository.findAll().stream()
                 .map(MemberDto.Response::toDto)
