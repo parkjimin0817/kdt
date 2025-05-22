@@ -43,11 +43,10 @@ public class BoardController {
     @GetMapping("/{boardNo}")
     public ResponseEntity<BoardDto.Response> getBoard(@PathVariable Long boardNo){
         return ResponseEntity.ok(boardService.getBoardDetail(boardNo));
-
     }
 
     //게시글 삭제
-    @DeleteMapping("{boardNo}")
+    @DeleteMapping("/{boardNo}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long boardNo){
         boardService.deleteBoard(boardNo);
         return ResponseEntity.ok().build();
@@ -57,5 +56,13 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<Long> createBoard(@ModelAttribute BoardDto.Create boardCreate) throws IOException {
         return ResponseEntity.ok(boardService.createBoard(boardCreate));
+    }
+
+    //게시글 수정
+    @PatchMapping("/{boardNo}")
+    public ResponseEntity<BoardDto.Response> updateBoard(
+            @PathVariable Long boardNo,
+            @ModelAttribute BoardDto.Update updateBoard) throws IOException {
+        return ResponseEntity.ok(boardService.updateBoard(boardNo, updateBoard));
     }
 }

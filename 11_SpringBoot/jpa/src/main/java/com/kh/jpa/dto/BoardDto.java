@@ -28,7 +28,22 @@ public class BoardDto {
                     .boardContent(this.board_content)
                     .build();
         }
+    }
 
+    @Getter
+    @AllArgsConstructor
+    public static class Update {
+        private String board_title;
+        private String board_content;
+        private MultipartFile file;
+        private List<String> tags;
+
+        public Board toEntity() {
+            return Board.builder()
+                    .boardTitle(this.board_title)
+                    .boardContent(this.board_content)
+                    .build();
+        }
     }
 
     @Getter

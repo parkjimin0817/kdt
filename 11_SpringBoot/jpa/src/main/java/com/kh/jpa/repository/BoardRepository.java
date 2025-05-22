@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository {
-//    List<Board> findAll();
     Page<Board> findByStatus(CommonEnums.Status status, Pageable pageable);
     Optional<Board> findOne(Long boardNo);
     void delete(Board board);
