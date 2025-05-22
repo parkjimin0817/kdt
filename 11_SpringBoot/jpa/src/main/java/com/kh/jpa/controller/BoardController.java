@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/boards")
+@RequestMapping("/api/boards") //수정수정
 @RequiredArgsConstructor
 public class BoardController {
 
