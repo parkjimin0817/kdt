@@ -23,17 +23,17 @@ public class BoardController {
 
     private final BoardService boardService;
 
-//    //게시글 목록 가져오는 api
-//    @GetMapping
-//    public ResponseEntity<List<BoardResponse.SimpleDTO>> getBoardList() {
-//        List<Board> boardList = boardService.findAll();
-//
-//        List<BoardResponse.SimpleDTO> result = new ArrayList<>();
-//        for (Board board : boardList) {
-//            result.add(BoardResponse.SimpleDTO.formEntity(board));
-//        }
-//        return new ResponseEntity<>(result, HttpStatus.OK);
-//    }
+    //게시글 목록 가져오는 api
+    @GetMapping
+    public ResponseEntity<List<BoardResponse.SimpleDTO>> getBoardList() {
+        List<Board> boardList = boardService.findAll();
+
+        List<BoardResponse.SimpleDTO> result = new ArrayList<>();
+        for (Board board : boardList) {
+            result.add(BoardResponse.SimpleDTO.formEntity(board));
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 //
 //    //게시글 상세 가져오는 api
 //    @GetMapping("/{boardId}")

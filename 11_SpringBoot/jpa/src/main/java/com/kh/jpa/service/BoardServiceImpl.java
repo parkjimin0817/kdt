@@ -43,14 +43,16 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Page<BoardDto.Response> getBoardList(Pageable pageable) {
+       /*
         Page<Board> page = boardRepository.findByStatus(CommonEnums.Status.Y, pageable);
         return page.map(BoardDto.Response::toSimpleDto);
-         /*
+
             getContent() 실제 데이터 리스트 반환
             getTotalPages() 전체 페이지 개수
             getTotalElements() 전체 데이터 수
             getSize() 페이지 당 수
          */
+        return null;
     }
 
 
@@ -77,7 +79,10 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public Long createBoard(BoardDto.Create createBoard) throws IOException {
+
+        /*
         //게시글작성
+
         //작성자 찾기 -> 객체지향코드를 작성할 것이기 때문에 key를 직접 외래키로 insert하지 않고
         //작성자를 찾아 참조해준다.
         Member member = memberRepository.findOne(createBoard.getBoard_writer())
@@ -119,6 +124,9 @@ public class BoardServiceImpl implements BoardService {
         }
 
         return boardRepository.save(board);
+
+         */
+        return null;
     }
 
     @Transactional

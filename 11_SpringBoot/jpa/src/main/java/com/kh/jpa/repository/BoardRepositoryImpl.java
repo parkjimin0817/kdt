@@ -15,6 +15,7 @@ import java.util.Optional;
 @Repository
 public class BoardRepositoryImpl implements BoardRepository {
 
+
     @PersistenceContext
     private EntityManager em;
 
@@ -58,4 +59,6 @@ public class BoardRepositoryImpl implements BoardRepository {
         em.persist(board);
         return board.getBoardNo();
     }
+
+
 }
