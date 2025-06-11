@@ -31,7 +31,6 @@ export const useSignUpForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting }, //유효성 에러 및 제출중 상태
-    setError,
     watch,
   } = useForm({
     resolver: yupResolver(signUpSchema), //yup스키마와 연결
