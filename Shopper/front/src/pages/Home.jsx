@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { SITE_CONFIG } from '../config/site';
 import { media } from '../styles/MediaQuery';
 import { productService } from '../api/products';
-import { GridContainer, Section } from '../styles/common/Container';
+import { Container, GridContainer, Section } from '../styles/common/Container';
 import { Title } from '../styles/common/Typograghy';
 import { Card, CardContent, CardTitle, CardImage } from '../styles/common/Card';
 import { toast } from 'react-toastify';
@@ -43,7 +43,7 @@ function Home() {
   }
 
   return (
-    <>
+    <Container>
       <Banner>
         <div>
           <BannerTitle>{SITE_CONFIG.name}</BannerTitle>
@@ -80,7 +80,7 @@ function Home() {
           ))}
         </GridContainer>
       </Section>
-    </>
+    </Container>
   );
 }
 

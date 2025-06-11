@@ -14,4 +14,9 @@ export const API_ENDPOINTS = {
   PRODUCTS: {
     BASE: '/products',
   },
+  USERS: {
+    BASE: '/users',
+    //LOGIN: '/users/login'
+    LOGIN: (email, password) => `/users?email=${email}&password=${password}`,
+  },
 };

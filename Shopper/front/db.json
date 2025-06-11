@@ -96,5 +96,25 @@
       "isNew": true,
       "isPopular": false
     }
+  ],
+  "users": [
+    {
+      "id": "cc8d",
+      "email": "123@naver.com",
+      "password": "a12341234",
+      "username": "박지민",
+      "role": "user",
+      "createdAt": "2025-06-11T06:32:48.168Z",
+      "updatedAt": "2025-06-11T06:32:48.168Z"
+    },
+    {
+      "id": "04a2",
+      "email": "123@naver.com",
+      "password": "asdf1234",
+      "username": "이인성",
+      "role": "user",
+      "createdAt": "2025-06-11T07:03:05.610Z",
+      "updatedAt": "2025-06-11T07:03:05.610Z"
+    }
   ]
 }

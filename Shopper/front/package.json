@@ -13,8 +13,10 @@
     "server": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.1.1",
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
+    "i": "^0.3.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",
