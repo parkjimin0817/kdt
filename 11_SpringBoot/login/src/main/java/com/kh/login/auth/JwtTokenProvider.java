@@ -26,7 +26,7 @@ public class JwtTokenProvider {
 
     }
 
-    public String createToken(String email, Role role) {
+    public String createToken(String email, String role) {
         Claims claims = Jwts.claims().setSubject(email);
         claims.put("role", role);
 

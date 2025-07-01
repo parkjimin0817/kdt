@@ -84,7 +84,7 @@ const MemberLogin = () => {
   const [password, setPassword] = useState("")
   
   const kakaoUrl = "https://kauth.kakao.com/oauth/authorize"
-  const kakaoClientId = "카카오 clientID"
+  const kakaoClientId = "2aa55a050ebfb2d6f06da91742907f71"
   const kakaoRedirectUrl = "http://localhost:3000/oauth/kakao/redirect"
 
   const memberLogin = async (e) => {

@@ -42,6 +42,11 @@ jwt:
   secret: 5/9zjcargCY32h+xAQ5I/JICeDRAuBYa0o4LG15WjjSBg6rMyA6bPShtClaoJqAwKehlaZhgMaJqewfIi+FySw==
   expiration: 3000 #분단위
 
+oauth:
+  kakao:
+    client-id: 059ef8f26b88dd1526613ba4725fd4ba  #카카오 REST API key
+    redirect-uri: http://localhost:3000/oauth/kakao/redirect
+
 
 ---
 spring:
