@@ -17,7 +17,6 @@ import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,24 +57,22 @@ public class MemberController {
     }
 
     @PostMapping("/kakao/login")
-    public ResponseEntity<?> kakaoLogin(@Valid @RequestBody RedirectDto redirectDto) {
+    public ResponseEntity<?> kakaoLogin(@RequestBody RedirectDto redirectDto) {
         AccessTokenDto accessTokenDto = kakaoService.getAccessToken(redirectDto.getCode());
         KakaoProfileDto kakaoProfileDto = kakaoService.getKakaoProfile(accessTokenDto.getAccess_token());
-        Member originMember = memberService.getMemberBySocialId(kakaoProfileDto.getId());
-        if(originMember == null) { //가입된 기록이 없음 회원가입해야함
+        Member originMember = memberService.getMemberBySocialId(kakaoProfileDto.getId(), SocialType.KAKAO);
+        if (originMember == null) { //가입된 기록이 없음 회원가입해야함
             originMember = memberService.createOauth(
                     kakaoProfileDto.getId(),
                     kakaoProfileDto.getKakao_account().getEmail(),
                     kakaoProfileDto.getKakao_account().getProfile().getNickname(),
                     SocialType.KAKAO
             );
-
         }
 
         String jwtToken = jwtTokenProvider.createToken(originMember.getEmail(), originMember.getRole().toString());
         Map<String, Object> loginInfo = new HashMap<>();
         loginInfo.put("token", jwtToken);
         return new ResponseEntity<>(loginInfo, HttpStatus.OK);
-
     }
 }

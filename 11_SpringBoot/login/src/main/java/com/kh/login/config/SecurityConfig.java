@@ -1,8 +1,8 @@
 package com.kh.login.config;
 
 import com.kh.login.auth.JwtTokenFilter;
-import com.kh.login.exception.UserNotFoundException;
-import java.util.Arrays;
+import com.kh.login.service.GoogleOauth2LoginSuccess;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,13 +22,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class SecurityConfig {
 
     private final JwtTokenFilter jwtTokenFilter;
+    private final GoogleOauth2LoginSuccess googleOauth2LoginSuccess;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable) //CSRF 보안기능 비활성 -> 세션을 통한 공격(REST에서는 필요없음)
-                .httpBasic(AbstractHttpConfigurer::disable) //HTTP Basic 인증 비활성 (아이디와 비밀번호를 HTTP 요청 헤더에 담아서 인증하는 방식)
+                .httpBasic(AbstractHttpConfigurer::disable) //HTTP Basic인증 비활성(아이디와 비밀번호를 HTTP요청 헤더에 담아서 인증하는 방식)
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
@@ -36,21 +37,22 @@ public class SecurityConfig {
                                 "/v1/member/login",
                                 "/v1/member/kakao/login"
                         ).permitAll()
-                        .anyRequest().authenticated() //위의 요청경로를 제외한 나머지 경로는 인증
+                        .anyRequest().authenticated() // 위의 요청경로를 제외한 나머지 경로는 인증
                 )
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                //OAuth2 로그인 성공시 실행될 핸드러를 설정
+                .oauth2Login(o -> o.successHandler(googleOauth2LoginSuccess))
                 .build();
-
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         //요청을 허용할 도메인들
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
 
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedMethods(List.of("*"));
         //자격증명(쿠키, 인증 헤더) 허용
         configuration.setAllowCredentials(true);
 

@@ -1,5 +1,6 @@
 package com.kh.login.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class KakaoProfileDto {
     private String id;
     private KakaoAccount kakao_account;
-
 
     @Data
     @NoArgsConstructor
@@ -31,5 +31,4 @@ public class KakaoProfileDto {
         private String nickname;
         private String profile_image_url;
     }
-
 }

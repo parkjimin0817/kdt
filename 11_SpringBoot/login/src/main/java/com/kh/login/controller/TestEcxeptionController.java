@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/test")
-public class TestExceptionController {
+public class TestEcxeptionController {
 
     @GetMapping("/user/{id}")
     public String getUser(@PathVariable Long id) {
         //Member m = service.getUser(id);
-        //if(m === null)
-        if( id <= 0) {
+        //if(m == null)
+        if (id <= 0) {
             throw new UserNotFoundException();
         }
 
@@ -24,7 +24,7 @@ public class TestExceptionController {
 
     @GetMapping("/illegal")
     public String testIllegalArgument(@RequestParam Integer number) {
-        if(number<0) {
+        if (number < 0) {
             throw new IllegalArgumentException("음수는 허용되지 않습니다. : " + number);
         }
 

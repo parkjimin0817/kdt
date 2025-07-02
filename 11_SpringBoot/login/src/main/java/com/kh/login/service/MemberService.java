@@ -5,7 +5,7 @@ import com.kh.login.dto.MemberCreateDto;
 import com.kh.login.dto.MemberLoginDto;
 import com.kh.login.dto.MemberResponseDto;
 import com.kh.login.enums.SocialType;
-import com.kh.login.exception.UserAlreadyExistsException;
+import com.kh.login.exception.UserAleadyExistsException;
 import com.kh.login.exception.UserNotFoundException;
 import com.kh.login.repository.MemberRepository;
 import java.util.Optional;
@@ -23,11 +23,11 @@ public class MemberService {
     public Member create(MemberCreateDto memberCreateDto) {
         //이메일중복검사
         if (memberRepository.existsByEmail(memberCreateDto.getEmail())) {
-            throw new UserAlreadyExistsException("이미 존재하는 이메일입니다.");
+            throw new UserAleadyExistsException("이미 존재하는 이메일입니다.");
         }
         //전화번호 중복검사
         if (memberRepository.existsByPhone(memberCreateDto.getPhone_number())) {
-            throw new UserAlreadyExistsException("이미 존재하는 전화번호입니다.");
+            throw new UserAleadyExistsException("이미 존재하는 전화번호입니다.");
         }
 
         //생성
@@ -42,15 +42,15 @@ public class MemberService {
         return member;
     }
 
-    public Member login(MemberLoginDto memberLoginDto) {
-        Optional<Member> optionalMember = memberRepository.findByEmail(memberLoginDto.getEmail());
-        if (!optionalMember.isPresent()) {
+    public Member login(MemberLoginDto loginDto) {
+        Optional<Member> optMember = memberRepository.findByEmail(loginDto.getEmail());
+        if (!optMember.isPresent()) {
             throw new UserNotFoundException("이메일이 존재하지 않습니다.");
         }
 
-        Member m = optionalMember.get();
-        if(!passwordEncoder.matches(memberLoginDto.getPassword(), m.getPassword())) {
-            throw new UserNotFoundException("비밀번호가 일치하지 않습니다");
+        Member m = optMember.get();
+        if (!passwordEncoder.matches(loginDto.getPassword(), m.getPassword())) {
+            throw new UserNotFoundException("비밀번호가 일치하지 않습니다.");
         }
         return m;
     }
@@ -61,9 +61,9 @@ public class MemberService {
         return MemberResponseDto.from(member);
     }
 
-    public Member getMemberBySocialId(String socialId) {
-        return memberRepository.findBySocialId(socialId)
-                .orElse(null);
+    public Member getMemberBySocialId(String socialId, SocialType socialType) {
+        Member member = memberRepository.findBySocialIdAndSocialType(socialId, socialType).orElse(null);
+        return member;
     }
 
     public Member createOauth(String socialId, String email, String name, SocialType socialType) {
@@ -79,5 +79,6 @@ public class MemberService {
         memberRepository.save(member);
         return member;
     }
+
 
 }
