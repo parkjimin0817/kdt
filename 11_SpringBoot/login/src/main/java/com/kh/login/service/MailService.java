@@ -37,9 +37,9 @@ public class MailService {
         helper.setTo(request.getTo());
         helper.setSubject(request.getSubject());
         helper.setText(htmlContent, true);
-        helper.setFrom("j0817imin@gmail.com");
+        helper.setFrom("wldnjsv1002@gmail.com");
 
-        if(isFile) {
+        if (isFile) {
             String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
             helper.addAttachment(originalFilename, file);
         }

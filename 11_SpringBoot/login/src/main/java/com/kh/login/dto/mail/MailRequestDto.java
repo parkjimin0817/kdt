@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MailRequestDto {
-    private String to; //받는사람
-    private String subject; //메일 제목
-    private String title; //내용의 제목
+    private String to; //받는 사람 이메일
+    private String subject; // 메일 제목
+    private String title; // 내용의 제목
     private String body; //내용
 }

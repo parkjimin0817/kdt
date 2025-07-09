@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,11 +20,11 @@ import org.hibernate.annotations.CreationTimestamp;
 @Getter
 @Entity
 public class File {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String originalName;
 
     @Column(nullable = false, unique = true)

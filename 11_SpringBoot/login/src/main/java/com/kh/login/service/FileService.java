@@ -70,9 +70,9 @@ public class FileService {
     public String generatePresignedDownloadUrl(String fileName) {
         return s3Presigner.presignGetObject(r -> r.getObjectRequest(get -> get
                                 .bucket(bucket)
-                                .key(fileName))
+                                .key(fileName))//경로
                         .signatureDuration(Duration.ofMinutes(5)))
                 .url()
                 .toString();
     }
-} 
+}

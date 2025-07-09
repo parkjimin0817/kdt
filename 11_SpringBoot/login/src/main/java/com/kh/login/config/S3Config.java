@@ -10,11 +10,14 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 @Configuration
 public class S3Config {
+    @Value("${aws.credentials.access-key}")
+    private String accessKey;
+    @Value("${aws.credentials.secret-key}")
+    private String secretKey;
+    @Value("${aws.region}")
+    private String region;
 
-    @Value("${aws.credentials.access-key}") private String accessKey;
-    @Value("${aws.credentials.secret-key}") private String secretKey;
-    @Value("${aws.region}") private String region;
-    //Presigned URL을 만들어준느 객체를 빈에 등록
+    //Presigned URL을 만들어주는 객체를 빈에 등록
     @Bean
     public S3Presigner s3Presigner() {
         AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
