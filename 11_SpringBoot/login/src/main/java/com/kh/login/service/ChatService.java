@@ -4,11 +4,13 @@ import com.kh.login.domain.ChatMessage;
 import com.kh.login.domain.ChatParticipant;
 import com.kh.login.domain.ChatRoom;
 import com.kh.login.domain.Member;
+import com.kh.login.domain.ReadStatus;
 import com.kh.login.dto.chat.ChatMessageDto;
 import com.kh.login.repository.ChatMessageRepository;
 import com.kh.login.repository.ChatParticipantRepository;
 import com.kh.login.repository.ChatRoomRepository;
 import com.kh.login.repository.MemberRepository;
+import com.kh.login.repository.ReadStatusRepository;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,7 @@ public class ChatService {
     private final ChatParticipantRepository chatParticipantRepository;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
+    private final ReadStatusRepository readStatusRepository;
 
     //1:1채팅방 생성 또는 조회
     public Long getOrCreatePrivateRoom(@RequestParam("other_member_id") Long otherMemberId) {
@@ -106,6 +109,44 @@ public class ChatService {
                 .collect(Collectors.toList());
 
         return chatMessageDtos;
+    }
 
+        /*
+        채팅 메세지 저장
+        1. 채팅방존재여부와 발신자정보 검증
+        2. 메세지를 데이터베이스 저장
+        3. 해당 채팅방의 모든 참여자에 대해 읽음 상태를 생성
+        - 발신자는 자동으로 읽음 처리
+        - 다른참여자들은 모두 읽음x
+
+     */
+
+    public void saveMessage(ChatMessageDto chatMessageDto) {
+        ChatRoom chatRoom = chatRoomRepository.findById(chatMessageDto.getRoomId())
+                .orElseThrow(() -> new EntityNotFoundException("Room not found"));
+
+        Member sender = memberRepository.findByEmail(chatMessageDto.getSenderEmail())
+                .orElseThrow(() -> new EntityNotFoundException("Member not found"));
+
+        //메세지 생성
+        ChatMessage chatMessage = ChatMessage.builder()
+                .chatRoom(chatRoom)
+                .member(sender)
+                .content(chatMessageDto.getMessage())
+                .build();
+
+        chatMessageRepository.save(chatMessage);
+
+        List<ChatParticipant> participants = chatParticipantRepository.findByChatRoom(chatRoom);
+        List<ReadStatus> readStatuses = participants.stream()
+                .map(c -> ReadStatus.builder()
+                        .chatRoom(chatRoom)
+                        .member(c.getMember())
+                        .chatMessage(chatMessage)
+                        .isRead(c.getMember().equals(sender))
+                        .build())
+                .toList();
+
+        readStatusRepository.saveAll(readStatuses);
     }
 }
