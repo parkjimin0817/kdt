@@ -40,4 +40,8 @@ public class ReadStatus extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chat_message_id", nullable = false)
     private ChatMessage chatMessage;
+
+    public void updateIsRead(Boolean isRead){
+        this.isRead = isRead;
+    }
 }
